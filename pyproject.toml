@@ -1,0 +1,20 @@
+[project]
+name = "md"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.18.3",
+    "asyncpg>=0.31.0",
+    "bcrypt>=5.0.0",
+    "black>=26.1.0",
+    "fastapi[all]>=0.128.0",
+    "isort>=7.0.0",
+    "minio>=7.2.20",
+    "passlib>=1.7.4",
+    "psycopg2-binary>=2.9.11",
+    "python-jose>=3.5.0",
+    "redis>=7.1.0",
+    "sqlalchemy>=2.0.46",
+]
