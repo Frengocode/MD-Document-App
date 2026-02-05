@@ -15,6 +15,7 @@ class UserRepository(ABCUserRepository):
     model = User
 
     async def create(self, request: SCreateUserRequest) -> User:
+        request.role = request.role.value
         user: User = self.model(**request.model_dump())
         self.session.add(user)
         await self.session.commit()
@@ -22,9 +23,9 @@ class UserRepository(ABCUserRepository):
         return user
 
     async def get(self, **filters: Any) -> User | None:
-        stmt: Select[User] = select().filter_by(**filters)
+        stmt: Select[User] = select(self.model).filter_by(**filters)
         result: Result[User] = await self.session.execute(stmt)
-        return result
+        return result.scalars().first()
 
     async def get_all(self, offset: int, limit: int, **filters: Any) -> List[User]:
         stmt: Select[User] = (

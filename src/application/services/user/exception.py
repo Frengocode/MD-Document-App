@@ -8,7 +8,7 @@ class ShortPasswordException(HTTPException):
 
 class RoleException(HTTPException):
     def __init__(self) -> None:
-        super().__init__(status_code=400, detail="Role should be User or Cheker !")
+        super().__init__(status_code=400, detail="Role should be Cheker !")
 
 
 class ExistUserException(HTTPException):
@@ -21,3 +21,8 @@ class ExistUserException(HTTPException):
 class UserNotFoundException(HTTPException):
     def __init__(self) -> None:
         super().__init__(status_code=400, detail="User not found !")
+
+
+class InCorrectPasswordException(HTTPException):
+    def __init__(self) -> None:
+        super().__init__(status_code=400, detail="InCorrect password")

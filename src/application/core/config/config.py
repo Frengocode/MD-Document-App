@@ -16,6 +16,7 @@ class PostgreSQLConfig(BaseSettings):
 class MinIOConfig(BaseSettings):
     MINIO_USERNAME: str
     MINIO_PASSWORD: str
+    MINIO_HOST: str
 
     model_config: SettingsConfigDict = SettingsConfigDict(
         env_file=".env", extra="allow"
