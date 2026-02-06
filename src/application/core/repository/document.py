@@ -29,9 +29,5 @@ class ABCDocumentRepository(ABC):
         self, request: Type[BaseModel], **filters: Any
     ) -> T | None: ...
 
-
     @abstractmethod
-    async def get(
-        self,
-        **filters: Any
-    ) -> T | Any: ...
+    async def get(self, **filters: Any) -> T | Any: ...

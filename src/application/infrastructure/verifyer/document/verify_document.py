@@ -9,6 +9,8 @@ class VerifyDocument(BaseVerifyer):
         self.repository = repository
 
     async def verify(self, id: int, participiant_id: int) -> Document:
-        document: Document | None = await self.repository.get(id=id, participiant_id=participiant_id)
+        document: Document | None = await self.repository.get(
+            id=id, participiant_id=participiant_id
+        )
         if not document:
             raise DocumentNotFoundException()

@@ -8,14 +8,15 @@ from src.application.core.config.config import settings
 from src.application.core.database.database import get_session
 from src.application.infrastructure.repository.document import DocumentRepository
 from src.application.infrastructure.s3.minio import MinIO
-from src.application.infrastructure.verifyer.document.verify_document import (
-    VerifyDocument
+from src.application.infrastructure.verifyer.document.authors_verifyer import (
+    VerifyDocumentAuthors,
 )
-from src.application.infrastructure.verifyer.document.authors_verifyer import VerifyDocumentAuthors
+from src.application.infrastructure.verifyer.document.verify_document import (
+    VerifyDocument,
+)
 
 
-
-async def get_minio_s3() -> MinIO: 
+async def get_minio_s3() -> MinIO:
     client: Minio = Minio(
         endpoint=settings.MINIO.MINIO_HOST,
         access_key=settings.MINIO.MINIO_USERNAME,
@@ -37,10 +38,7 @@ async def verify_document(
     return VerifyDocument(repository=repository)
 
 
-
 async def verify_authors(
-    repository: Annotated[DocumentRepository, Depends(get_document_repository)]
+    repository: Annotated[DocumentRepository, Depends(get_document_repository)],
 ) -> VerifyDocumentAuthors:
     return VerifyDocumentAuthors(repository=repository)
-
-

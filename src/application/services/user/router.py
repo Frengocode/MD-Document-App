@@ -18,7 +18,6 @@ from src.application.infrastructure.verifyer.user.verifying_of_existing_user imp
 from src.application.services.user.commands.auth_user import AuthUser
 from src.application.services.user.commands.create_user import CreateUser
 from src.application.services.user.commands.update_user import UpdateUser
-from src.application.services.user.queries.get_users import GetUsers
 from src.application.services.user.dependcies.v1.dependcies import (
     exist_user_verifyer,
     get_current_user,
@@ -28,6 +27,7 @@ from src.application.services.user.dependcies.v1.dependcies import (
     verify_of_existing_user,
 )
 from src.application.services.user.queries.get_user import GetUser
+from src.application.services.user.queries.get_users import GetUsers
 from src.application.services.user.scheme import (
     SAuthUserRequest,
     SCreateUserRequest,
@@ -85,15 +85,11 @@ async def update_user(
     return await service.execute(request=request, current_user=current_user)
 
 
-
-@user_router_service.get(
-    "/get/users/",
-    response_model=List[SUser]
-)
+@user_router_service.get("/get/users/", response_model=List[SUser])
 async def get_users(
     offset: Annotated[int, Query(...)],
     limit: Annotated[int, Query(...)],
-    repository: Annotated[UserRepository, Depends(get_user_repository)]
+    repository: Annotated[UserRepository, Depends(get_user_repository)],
 ) -> List[GetUsers]:
     service: GetUsers = GetUsers(repository=repository)
     return await service.execute(offset=offset, limit=limit)

@@ -14,5 +14,3 @@ class SaveDocumentException(HTTPException):
 class DocumentNotFoundException(HTTPException):
     def __init__(self) -> None:
         super().__init__(status_code=404, detail="Document not found")
-
-

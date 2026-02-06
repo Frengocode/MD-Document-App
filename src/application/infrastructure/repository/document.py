@@ -36,7 +36,11 @@ class DocumentRepository(ABCDocumentRepository):
 
     async def get_all(self, offset: int, limit: int, **filters: Any) -> List[Document]:
         stmt: Select[Document] = (
-            select(self.model).offset(offset).limit(limit).filter_by(**filters).order_by(self.model.created_at.desc())
+            select(self.model)
+            .offset(offset)
+            .limit(limit)
+            .filter_by(**filters)
+            .order_by(self.model.created_at.desc())
         )
         result: Result[Document] = await self.session.execute(stmt)
         return result.scalars().all()
@@ -60,12 +64,7 @@ class DocumentRepository(ABCDocumentRepository):
         await self.session.commit()
         return document
 
-
-
-    async def get(
-        self,
-        **filters: Any
-    ) -> Document | None:
+    async def get(self, **filters: Any) -> Document | None:
         stmt: Select[Document] = select(self.model).filter_by(**filters)
         result: Result[Document] = await self.session.execute(stmt)
-        return result.scalars().first() 
+        return result.scalars().first()
